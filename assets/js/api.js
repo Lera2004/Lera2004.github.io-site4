@@ -19,7 +19,9 @@ export const fetchData = function (URL, callback) {
    .then(res => res.json())
    .then(data => callback(data));
 }
-
+const urlParams = new URLSearchParams(window.location.search);
+const lat = urlParams.get('lat');
+const lon = urlParams.get('lon');
 export const url = {
    currentWeather(lat, lon) {
       return `https://api.openweathermap.org/data/2.5/weather?${lat}&${lon}&units=metric&`
