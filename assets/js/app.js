@@ -49,6 +49,43 @@ searchField.addEventListener("input", function () {
       searchField.classList.add("searching");
    }
 
+   // Вставляем дополнительные console.log для отладки
+const searchField = document.querySelector("[data-search-field]");
+const searchResult = document.querySelector("[data-search-result]");
+
+searchField.addEventListener("input", function () {
+   console.log("Input event fired"); // Добавляем лог для отслеживания события
+
+   searchTimeout ?? clearTimeout(searchTimeout);
+
+   if (!searchField.value) { 
+      console.log("Search field is empty"); // Добавляем лог для пустого поля
+      searchResult.classList.remove("active");
+      searchResult.innerHTML = "";
+      searchField.classList.remove("searching");
+   } else {
+      console.log("Searching..."); // Добавляем лог для поиска
+      searchField.classList.add("searching");
+   }
+
+   if (searchField.value) {
+      searchTimeout = setTimeout(() => {
+         fetchData(url.geo(searchField.value), function (locations) {
+            console.log("Fetching data..."); // Добавляем лог для получения данных
+
+            searchField.classList.remove("searching");
+            searchResult.classList.add("active");
+            searchResult.innerHTML = `
+               <ul class="view-list" data-search-list></ul>
+            `;
+
+            // ... (другой код по обработке результатов поиска) ...
+         });
+      }, searchTimeoutDuration);
+   }
+});
+
+
    if (searchField.value) {
       searchTimeout = setTimeout(() => {
          fetchData(url.geo(searchField.value,), function (locations) {
