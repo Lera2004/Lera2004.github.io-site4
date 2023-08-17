@@ -49,9 +49,6 @@ searchField.addEventListener("input", function () {
       searchField.classList.add("searching");
    }
 
-   
-
-
    if (searchField.value) {
       searchTimeout = setTimeout(() => {
          fetchData(url.geo(searchField.value,), function (locations) {
@@ -433,28 +430,24 @@ export const updateWeather = function (lat, lon) {
             const [{ icon, description }] = weather
             const date = new Date(dt_txt);
 
-           const li = document.createElement("li");
-li.classList.add("card-item");
+            const li = document.createElement("li");
+            li.classList.add("card-item");
 
-if (!isNaN(temp_max)) {
-   li.innerHTML = `
-      <div class="icon-wrapper">
-         <img src="./assets/images/weather_icons/${icon}.png" width="36" height="36" alt="${description}" class="weather-icon" title="${description}">
-      
-         <span class="span">
-            <p class="title-2">${parseInt(temp_max)}&deg;</p>
-         </span>
-      </div>
+            li.innerHTML = `
+               <div class="icon-wrapper">
+                  <img src="./assets/images/weather_icons/${icon}.png" width="36" height="36" alt="${description}" class="weather-icon" title="${description}">
+               
+               
+                  <span class="span">
+                     <p class="title-2">${parseInt(temp_max)}&deg;</p>
+                  </span>
+               </div>
 
-      <p class="label-1">${date.getDate()} ${module.monthNames[date.getUTCMonth()]}</p>
+               <p class="label-1">${date.getDate()} ${module.monthNames[date.getUTCMonth()]}</p>
 
-      <p class="label-1">${module.weekDayNames[date.getUTCDay()]}</p>
-   `;
-} else {
-   li.textContent = "Ошибка: данные недоступны";
-}
-
-forecastSection.querySelector("[data-forecast-list]").appendChild(li);
+               <p class="label-1">${module.weekDayNames[date.getUTCDay()]}</p>
+            `;
+            forecastSection.querySelector("[data-forecast-list]").appendChild(li);
 
          }
 
